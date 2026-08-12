@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+    <%- include('partials/header'); -%>
+
+    <main class="mx-auto max-w-3xl px-4 py-12">
+        <section class="rounded-3xl border border-slate-800 bg-slate-900/80 p-8 shadow-xl shadow-slate-950/50 backdrop-blur-lg">
+            <div class="space-y-4 text-center">
+                <p class="text-sm uppercase tracking-[0.4em] text-cyan-400">Shorten links instantly</p>
+                <h1 class="text-4xl font-semibold tracking-tight text-white sm:text-5xl">Fast, simple URL shortening for any link.</h1>
+                <p class="mx-auto max-w-2xl text-slate-400">Paste a long URL below and get a clean, shareable link in seconds. Perfect for email, social posts, and analytics-ready sharing.</p>
+            </div>
+
+            <form action="/" method="POST" class="mt-8 grid gap-4 sm:grid-cols-[1fr_auto]">
+                <input
+                    type="url"
+                    name="url"
+                    placeholder="https://example.com"
+                    required
+                    class="w-full rounded-2xl border border-slate-700 bg-slate-950/90 px-4 py-4 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
+                />
+                <button
+                    type="submit"
+                    class="rounded-2xl bg-cyan-500 px-6 py-4 text-sm font-semibold uppercase tracking-wide text-slate-950 transition hover:bg-cyan-400 focus:outline-none focus:ring-4 focus:ring-cyan-500/30"
+                >Generate</button>
+            </form>
+
+            <% if (originalURL && shortedURL) { %>
+                <div class="mt-8 space-y-6 rounded-3xl border border-slate-800 bg-slate-950/95 p-6">
+                    <div class="flex flex-col gap-4 rounded-2xl border border-slate-800 bg-slate-900/80 p-4 sm:flex-row sm:items-start sm:justify-between">
+                        <div class="min-w-0 space-y-1">
+                            <p class="text-sm font-semibold text-cyan-300">Original URL</p>
+                            <a href="<%= originalURL %>" target="_blank" class="break-words text-slate-100 hover:text-cyan-300"><%= originalURL %></a>
+                        </div>
+                        <button type="button" data-copy="<%= originalURL %>" class="inline-flex items-center justify-center rounded-2xl bg-slate-800 px-4 py-3 text-sm font-semibold text-slate-100 transition hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-500/40">Copy</button>
+                    </div>
+                    <div class="flex flex-col gap-4 rounded-2xl border border-slate-800 bg-slate-900/80 p-4 sm:flex-row sm:items-start sm:justify-between">
+                        <div class="min-w-0 space-y-1">
+                            <p class="text-sm font-semibold text-cyan-300">Shortened URL</p>
+                            <a href="<%= shortedURL %>" target="_blank" class="block break-words text-lg font-semibold text-white hover:text-cyan-300"><%= shortedURL %></a>
+                        </div>
+                        <button type="button" data-copy="<%= shortedURL %>" class="inline-flex items-center justify-center rounded-2xl bg-cyan-500 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/40">Copy</button>
+                    </div>
+                </div>
+            <% } %>
+        </section>
+    </main>
+    <script>
+        function copyToClipboard(value) {
+            if (!navigator.clipboard) {
+                const textarea = document.createElement('textarea');
+                textarea.value = value;
+                textarea.setAttribute('readonly', '');
+                textarea.style.position = 'absolute';
+                textarea.style.left = '-9999px';
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                return;
+            }
+            navigator.clipboard.writeText(value).catch(() => {});
+        }
+
+        document.addEventListener('click', (event) => {
+            const button = event.target.closest('[data-copy]');
+            if (!button) return;
+            const value = button.dataset.copy;
+            if (!value) return;
+
+            copyToClipboard(value);
+            const originalLabel = button.textContent;
+            button.textContent = 'Copied';
+            button.disabled = true;
+            setTimeout(() => {
+                button.textContent = originalLabel;
+                button.disabled = false;
+            }, 1400);
+        });
+    </script>
+</body>
+</html>

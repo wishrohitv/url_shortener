@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - URL Shortener</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+    <%- include('partials/header'); -%>
+
+    <main class="mx-auto max-w-4xl px-4 py-12">
+      <section
+        class="rounded-3xl border border-slate-800 bg-slate-900/85 p-8 shadow-xl shadow-slate-950/40 backdrop-blur-lg"
+      >
+        <div class="space-y-6">
+          <div class="space-y-3">
+            <p class="text-sm uppercase tracking-[0.4em] text-cyan-400">
+              Project Architecture
+            </p>
+            <h1 class="text-3xl font-semibold text-white sm:text-4xl">
+              About this URL Shortener
+            </h1>
+            <p class="text-slate-400">
+              This project is a lightweight web application designed to turn
+              long URLs into short, shareable links with a minimal, responsive
+              interface.
+            </p>
+          </div>
+
+          <div
+            class="space-y-4 rounded-3xl border border-slate-800 bg-slate-950/75 p-6"
+          >
+            <h2 class="text-2xl font-semibold text-white">
+              Architecture Overview
+            </h2>
+            <ul
+              class="space-y-3 text-slate-300 marker:text-cyan-400 list-disc list-inside"
+            >
+              <li>
+                <span class="font-semibold text-white">Express.js</span> serves
+                as the web server and routing layer for both page rendering and
+                API requests.
+              </li>
+              <li>
+                <span class="font-semibold text-white">EJS</span> renders the
+                frontend views from `src/views`, with common layout pieces kept
+                in partials.
+              </li>
+              <li>
+                <span class="font-semibold text-white">Mongoose</span> connects
+                to MongoDB and stores shortened links in a simple `links` model.
+              </li>
+              <li>
+                <span class="font-semibold text-white">Static assets</span> are
+                served from `src/public`, including the favicon and any
+                client-side scripts or styles.
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="space-y-4 rounded-3xl border border-slate-800 bg-slate-950/75 p-6"
+          >
+            <h2 class="text-2xl font-semibold text-white">Folder Structure</h2>
+            <p class="text-slate-300">
+              The project is organized to keep features clear and maintainable:
+            </p>
+            <ul
+              class="space-y-2 text-slate-300 marker:text-cyan-400 list-disc list-inside"
+            >
+              <li>
+                <span class="font-semibold text-white">src/routes/</span> for
+                page routes.
+              </li>
+              <li>
+                <span class="font-semibold text-white">src/api/routes/</span>
+                for API-specific routing.
+              </li>
+              <li>
+                <span class="font-semibold text-white"
+                  >src/api/controllers/</span
+                >
+                for request handling logic.
+              </li>
+              <li>
+                <span class="font-semibold text-white">src/models/</span> for
+                database schemas.
+              </li>
+              <li>
+                <span class="font-semibold text-white">src/services/</span> for
+                reusable service functions like URL creation and lookup.
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="rounded-3xl border border-slate-800 bg-slate-950/75 p-6 text-slate-300"
+          >
+            <h2 class="text-2xl font-semibold text-white">GitHub Repository</h2>
+            <p class="mt-2">
+              Explore the source code, issues, and contribution details on
+              GitHub:
+            </p>
+            <a
+              href="https://github.com/wishrohitv/url_shortener"
+              target="_blank"
+              class="inline-flex items-center gap-2 rounded-2xl bg-slate-800 px-4 py-3 text-cyan-300 transition hover:bg-slate-700 hover:text-white"
+              >https://github.com/wishrohitv/url_shortener</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
