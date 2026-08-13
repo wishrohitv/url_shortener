@@ -20,13 +20,13 @@ This project provides a minimal full-stack web app that accepts a long URL, gene
 
 - `GET /` - Home page with the URL shortening form.
 - `POST /` - Handles form submission and returns the shortened link.
+- `GET /:urlId` - Redirects to the original URL based on the short URL.
 - `GET /about` - Project information and architecture page.
 - `GET /*` - Fallback route for not found pages (renders `notFound.ejs`).
 
-### API routes
+### API routes  
 
 - `POST /api/v1/urls` - Create a new shortened link from a long URL.
-- `GET /api/v1/urls/:code` - Retrieve link details or redirect using a short code. (If implemented in route logic.)
 
 ## Pages
 
