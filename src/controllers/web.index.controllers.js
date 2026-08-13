@@ -19,12 +19,11 @@ const redirectToOriginalUrl = asyncHandler(async function (req, res, next) {
   const { urlId } = req.params;
   try {
     const url = await UrlService.getOriginalUrl(urlId);
-    if (!url) {
-      return res.status(404).render("notFound");
-    }
+
     res.redirect(url.url);
   } catch (error) {
-    res.status(500).render("notFound");
+    res.status(404);
+    next(new Error(`Short URL not found for ID: ${urlId}`));
   }
 });
 

@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import Env from "./config/env.js";
 
 const app = express();
 
@@ -19,8 +20,18 @@ app.use("/", indexRoute);
 // backend routes
 app.use("/api/url", urlRoute);
 
+// Catch-all middleware for UNKNOWN routes (404)
 app.use((req, res, next) => {
-  res.status(404).render("notFound");
+  const error = new Error(`Not Found - ${req.originalUrl}`);
+  res.status(404);
+  next(error); // Forwards the error to the global error handler
+});
+
+// Global Error Handling Middleware
+app.use((err, req, res, next) => {
+  res
+    .status(404)
+    .render("notFound", { url: req.originalUrl, error: err.message });
 });
 
 export default app;

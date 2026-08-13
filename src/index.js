@@ -12,5 +12,5 @@ connectDB(env.MONGO_URI)
     });
   })
   .catch((error) => {
-    console.log("Failed to start server: ", error);
+    console.error("Failed to start server: ", error);
   });
