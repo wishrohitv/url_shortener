@@ -1,5 +1,7 @@
 import { Links } from "../models/links.model.js";
 import { Analytics } from "../models/analytics.model.js";
+import { Counter } from "../models/counter.model.js";
+import { Base62 } from "../utils/base62.js";
 import { uid } from "uid";
 import { readFileSync } from "fs";
 import path from "path";
@@ -7,22 +9,18 @@ import { Reader } from "@maxmind/geoip2-node";
 
 export const UrlService = {
   async createShortUrl(url) {
-    let _uid = uid(6);
 
-    const existingUrl = await Links.findOne({ url });
-    if (existingUrl) {
-      return { urlId: existingUrl.urlId };
-    }
+    const seq = await Counter.findOneAndUpdate(
+      { _id: "urlId" },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true },
+      { returnDocument: "after" },
+    );
+    console.log("Current Sequence Value:", seq.seq);
 
-    while (true) {
-      const checkExistingUrlId = await Links.findOne({ urlId: _uid });
+    const _uid = Base62.encode(seq.seq);
 
-      if (!checkExistingUrlId) {
-        break;
-      }
-
-      _uid = uid(6);
-    }
+    console.log("Generated URL ID:", _uid);
 
     const newLink = await Links.create({
       url,
