@@ -2,7 +2,6 @@ import { Links } from "../models/links.model.js";
 import { Analytics } from "../models/analytics.model.js";
 import { Counter } from "../models/counter.model.js";
 import { Base62 } from "../utils/base62.js";
-import { uid } from "uid";
 import { readFileSync } from "fs";
 import path from "path";
 import { Reader } from "@maxmind/geoip2-node";
