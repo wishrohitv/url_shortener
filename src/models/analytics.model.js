@@ -4,7 +4,7 @@ const analyticsSchema = new Schema(
   {
     linkId: {
       type: Schema.Types.ObjectId,
-      ref: "Link",
+      ref: "Links",
       required: true,
     },
     ipAddress: {
