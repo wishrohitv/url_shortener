@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Error</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+    <%- include('partials/header'); -%>
+
+    <main
+      class="mx-auto flex min-h-[calc(100vh-88px)] max-w-4xl items-center justify-center px-4 py-12"
+    >
+      <section
+        class="w-full rounded-3xl border border-red-500/30 bg-slate-900/90 p-8 shadow-xl shadow-slate-950/40 sm:p-12"
+      >
+        <div class="space-y-6 text-center">
+          <p class="text-sm uppercase tracking-[0.4em] text-red-400">
+            Something went wrong
+          </p>
+          <h1 class="text-4xl font-semibold text-white sm:text-5xl">Error</h1>
+
+          <p class="mx-auto max-w-2xl text-slate-300">
+            We encountered an unexpected issue. Please try again or return to
+            the home page.
+          </p>
+
+          <div class="pt-2">
+            <a
+              href="/"
+              class="inline-flex items-center justify-center rounded-2xl bg-red-500 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-red-400 focus:outline-none focus:ring-4 focus:ring-red-500/30"
+            >
+              Go Home
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

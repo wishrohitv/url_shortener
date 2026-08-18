@@ -1,7 +1,8 @@
 import express from "express";
 import path from "path";
-import { express as useragent } from 'express-useragent';
+import { express as useragent } from "express-useragent";
 import Env from "./config/env.js";
+import AppError from "./utils/AppError.js";
 
 const app = express();
 
@@ -26,16 +27,24 @@ app.use("/api/url", urlRoute);
 
 // Catch-all middleware for UNKNOWN routes (404)
 app.use((req, res, next) => {
-  const error = new Error(`Not Found - ${req.originalUrl}`);
+  const error = new AppError(404, `Not Found - ${req.originalUrl}`);
   res.status(404);
   next(error); // Forwards the error to the global error handler
 });
 
 // Global Error Handling Middleware
 app.use((err, req, res, next) => {
-  res
-    .status(404)
-    .render("notFound", { url: req.originalUrl, error: err.message });
+  const statusCode = err.statusCode || 500;
+  if (statusCode === 404) {
+    res
+      .status(404)
+      .render("notFound", { url: req.originalUrl, error: err.message });
+  } else {
+    console.error(err.stack);
+    res
+      .status(statusCode)
+      .render("error", { error: err.message, statusCode: statusCode });
+  }
 });
 
 export default app;

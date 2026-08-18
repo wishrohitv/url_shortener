@@ -2,30 +2,24 @@ import { Links } from "../models/links.model.js";
 import { Analytics } from "../models/analytics.model.js";
 import { Counter } from "../models/counter.model.js";
 import { Base62 } from "../utils/base62.js";
-import { readFileSync } from "fs";
+import { mmdbBuffer } from "../db/index.js";
 import path from "path";
 import { Reader } from "@maxmind/geoip2-node";
 
 export const UrlService = {
   async createShortUrl(url) {
-
     const seq = await Counter.findOneAndUpdate(
       { _id: "urlId" },
       { $inc: { seq: 1 } },
-      { new: true, upsert: true },
-      { returnDocument: "after" },
+      { returnDocument: "after", upsert: true },
     );
-    console.log("Current Sequence Value:", seq.seq);
 
     const _uid = Base62.encode(seq.seq);
-
-    console.log("Generated URL ID:", _uid);
 
     const newLink = await Links.create({
       url,
       urlId: _uid,
     });
-    await newLink.save();
 
     return { urlId: _uid };
   },
@@ -44,11 +38,7 @@ export const UrlService = {
       throw new Error("URL not found");
     }
 
-    console.log(parserUserAgent);
-
-    const dbBuffer = readFileSync(
-      path.join(path.resolve(), "src/public/ip66.mmdb"),
-    );
+    const dbBuffer = mmdbBuffer();
     const reader = Reader.openBuffer(dbBuffer);
 
     let geoData;

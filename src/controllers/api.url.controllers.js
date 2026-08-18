@@ -1,6 +1,5 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { UrlService } from "../services/url.service.js";
-import { uid } from "uid";
 
 const registerUrl = asyncHandler(async function (req, res, next) {
   const { url } = req.body;

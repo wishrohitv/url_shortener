@@ -1,5 +1,6 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { UrlService } from "../services/url.service.js";
+import AppError from "../utils/AppError.js";
 
 const indexPage = asyncHandler(async function (req, res, next) {
   res.render("index", { originalURL: null, shortedURL: null });
@@ -20,10 +21,7 @@ const redirectToOriginalUrl = asyncHandler(async function (req, res, next) {
   try {
     const url = await UrlService.getOriginalUrl(urlId);
 
-    // const userAgent = parse(req.headers["user-agent"]);
     const ipAddress = req.ip;
-
-    console.log(req.useragent);
 
     // Run the tracking function asynchronously without blocking the redirect
     UrlService.trackUrl({ urlId, ipAddress, parserUserAgent: req.useragent });
@@ -32,7 +30,7 @@ const redirectToOriginalUrl = asyncHandler(async function (req, res, next) {
   } catch (error) {
     console.error(error);
     res.status(404);
-    next(new Error(`Short URL not found for ID: ${urlId}`));
+    next(new AppError(404, `Short URL not found for ID: ${urlId}`));
   }
 });
 
