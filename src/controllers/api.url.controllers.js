@@ -6,7 +6,7 @@ const registerUrl = asyncHandler(async function (req, res, next) {
 
   const { urlId } = await UrlService.createShortUrl(url);
 
-  res.status(200).json({
+  return res.status(200).json({
     message: "success",
     data: {
       shortedURL: `${req.protocol}://${req.get("host")}/${urlId}`,

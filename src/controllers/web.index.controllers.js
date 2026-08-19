@@ -3,14 +3,14 @@ import { UrlService } from "../services/url.service.js";
 import AppError from "../utils/AppError.js";
 
 const indexPage = asyncHandler(async function (req, res, next) {
-  res.render("index", { originalURL: null, shortedURL: null });
+  return res.render("index", { originalURL: null, shortedURL: null });
 });
 
 const createShortUrl = asyncHandler(async function (req, res, next) {
   const { url } = req.body;
   const { urlId } = await UrlService.createShortUrl(url);
 
-  res.render("index", {
+  return res.render("index", {
     originalURL: url,
     shortedURL: `${req.protocol}://${req.get("host")}/${urlId}`,
   });
@@ -26,16 +26,15 @@ const redirectToOriginalUrl = asyncHandler(async function (req, res, next) {
     // Run the tracking function asynchronously without blocking the redirect
     UrlService.trackUrl({ urlId, ipAddress, parserUserAgent: req.useragent });
 
-    res.redirect(url.url);
+    return res.redirect(url.url);
   } catch (error) {
     const err = new AppError(404, `Short URL not found for ID: ${urlId}`);
-    res.status(404);
-    next(err);
+    return next(err);
   }
 });
 
 const aboutPage = asyncHandler(async function (req, res, next) {
-  res.render("about");
+  return res.render("about");
 });
 
 export { indexPage, createShortUrl, redirectToOriginalUrl, aboutPage };
