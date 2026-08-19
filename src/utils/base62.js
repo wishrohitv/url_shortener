@@ -7,7 +7,7 @@ export const Base62 = {
     while (num > 0) {
       const remainder = num % 62;
       num = Math.floor(num / 62);
-      val += chars[remainder];
+      val = chars[remainder] + val;
     }
     return val;
   },

@@ -28,9 +28,9 @@ const redirectToOriginalUrl = asyncHandler(async function (req, res, next) {
 
     res.redirect(url.url);
   } catch (error) {
-    console.error(error);
+    const err = new AppError(404, `Short URL not found for ID: ${urlId}`);
     res.status(404);
-    next(new AppError(404, `Short URL not found for ID: ${urlId}`));
+    next(err);
   }
 });
 

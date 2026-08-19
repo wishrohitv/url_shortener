@@ -56,7 +56,5 @@ export const UrlService = {
       browser: parserUserAgent.browser,
       country: geoData ? geoData.country.names.en : "Unknown",
     });
-
-    await url.save();
   },
 };
