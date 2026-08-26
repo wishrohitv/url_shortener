@@ -37,4 +37,26 @@ const aboutPage = asyncHandler(async function (req, res, next) {
   return res.render("about");
 });
 
-export { indexPage, createShortUrl, redirectToOriginalUrl, aboutPage };
+const docsPage = asyncHandler(async function (req, res, next) {
+  return res.render("docs");
+});
+
+const getUrlStats = asyncHandler(async function (req, res, next) {
+  const { urlId } = req.params;
+  try {
+    // const stats = await UrlService.getUrlStats(urlId);
+    return res.render("stats");
+  } catch (error) {
+    const err = new AppError(404, `Short URL not found for ID: ${urlId}`);
+    return next(err);
+  }
+});
+
+export {
+  indexPage,
+  createShortUrl,
+  redirectToOriginalUrl,
+  aboutPage,
+  docsPage,
+  getUrlStats,
+};

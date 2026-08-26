@@ -1,3 +1,0 @@
-NODE_OPTIONS="--dns-result-order=ipv4first" npm i express
-
-npm run dev

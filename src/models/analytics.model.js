@@ -19,10 +19,6 @@ const analyticsSchema = new Schema(
     country: {
       type: String,
     },
-    timestamp: {
-      type: Date,
-      default: Date.now,
-    },
   },
   { timestamps: true },
 );

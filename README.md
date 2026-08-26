@@ -22,16 +22,19 @@ This project provides a minimal full-stack web app that accepts a long URL, gene
 - `POST /` - Handles form submission and returns the shortened link.
 - `GET /:urlId` - Redirects to the original URL based on the short URL.
 - `GET /about` - Project information and architecture page.
+- `GET /docs` - API documentation page.
 - `GET /*` - Fallback route for not found pages (renders `notFound.ejs`).
 
-### API routes  
+### API routes
 
-- `POST /api/v1/urls` - Create a new shortened link from a long URL.
+- `POST /api/url/register` - Create a new shortened link. Send `{ "url": "https://example.com" }` as JSON.
+- `GET /api/url/:urlId/stats` - Read click analytics. Use `?type=line`, `?type=os`, or `?type=country`.
 
 ## Pages
 
 - `src/views/index.ejs` - Main application page with the URL form and result cards.
 - `src/views/about.ejs` - About page with architecture overview and GitHub repository link.
+- `src/views/docs.ejs` - API endpoint reference and request examples.
 - `src/views/notFound.ejs` - Styled 404 page for invalid routes.
 - `src/views/partials/header.ejs` - Shared header/navigation partial.
 

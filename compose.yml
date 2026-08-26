@@ -10,6 +10,6 @@ services:
     environment:
     - MONGO_INITDB_ROOT_USERNAME=admin
     - MONGO_INITDB_ROOT_PASSWORD=1234
-    volumes:
-     -v /home/wishrohitv/desktop/data:/data/db
+    # volumes:
+    #  -v /home/wishrohitv/desktop/data:/data/db
 
