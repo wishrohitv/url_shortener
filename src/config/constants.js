@@ -1,1 +1,0 @@
-const appname = "URL Shortner"

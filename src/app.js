@@ -1,7 +1,6 @@
 import express from "express";
 import path from "path";
 import { express as useragent } from "express-useragent";
-import Env from "./config/env.js";
 import AppError from "./utils/AppError.js";
 
 const app = express();

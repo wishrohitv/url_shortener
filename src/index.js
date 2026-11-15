@@ -1,14 +1,14 @@
 import "dotenv/config";
 import app from "./app.js";
-import Env from "./config/env.js";
+import config from "./config/config.js";
 import { connectMongoDB } from "./db/index.js";
 
-const env = new Env();
-
-connectMongoDB(env.MONGO_URI)
+connectMongoDB(config.MONGO_URI)
   .then(() => {
-    app.listen(env.PORT, () => {
-      console.log(`App is running on the port: http://localhost:${env.PORT}`);
+    app.listen(config.PORT, () => {
+      console.log(
+        `App is running on the port: http://localhost:${config.PORT}`,
+      );
     });
   })
   .catch((error) => {
